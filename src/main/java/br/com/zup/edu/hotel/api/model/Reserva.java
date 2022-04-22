@@ -18,14 +18,19 @@ public class Reserva {
     private LocalDate checkOut;
 
     @Column(nullable = false)
+    private String reservadoPara;
+
+    @Column(nullable = false)
     private LocalDateTime criadaEm = LocalDateTime.now();
 
     @ManyToOne(optional = false)
     private Quarto quarto;
 
-    public Reserva(LocalDate checkIn, LocalDate checkOut) {
+    public Reserva(LocalDate checkIn, LocalDate checkOut, String reservadoPara, Quarto quarto) {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+        this.reservadoPara = reservadoPara;
+        this.quarto = quarto;
     }
 
     /**
@@ -39,7 +44,4 @@ public class Reserva {
         return id;
     }
 
-    public void setQuarto(Quarto quarto) {
-        this.quarto = quarto;
-    }
 }

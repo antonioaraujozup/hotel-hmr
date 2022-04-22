@@ -26,7 +26,10 @@ public class Quarto {
     private TipoQuarto tipoQuarto;
 
     @Column(nullable = false)
-    private Boolean reservado = false;
+    private boolean reservado = false;
+
+    @Version
+    private int versao;
 
     @OneToMany(mappedBy = "quarto", cascade = CascadeType.PERSIST)
     private List<Reserva> reservas = new ArrayList<>();
@@ -48,14 +51,12 @@ public class Quarto {
         return id;
     }
 
-    public void reservar(Reserva novaReserva) {
-        if (this.reservado) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "O quarto já possui uma reserva ativa");
-        }
+    public boolean isReservado() {
+        return reservado;
+    }
 
-        novaReserva.setQuarto(this);
+    public void adicionar(Reserva novaReserva) {
         this.reservas.add(novaReserva);
-
         this.reservado = true;
     }
 }

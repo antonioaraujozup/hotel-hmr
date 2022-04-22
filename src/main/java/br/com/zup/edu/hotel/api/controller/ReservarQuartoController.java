@@ -34,9 +34,9 @@ public class ReservarQuartoController {
         Quarto quarto = repository.findById(quartoId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Quarto não cadastrado"));
 
-        Reserva reserva = request.paraReserva();
+        Reserva reserva = request.paraReserva(quarto);
 
-        quarto.reservar(reserva);
+        quarto.adicionar(reserva);
 
         repository.flush();
 
